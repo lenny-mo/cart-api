@@ -24,7 +24,9 @@ type CartAPI struct {
 
 // FindAll 获取用户的购物车列表
 func (c *CartAPI) FindAll(ctx context.Context, req *cartapi.FindAllRequest, res *cartapi.FindAllResponse) error {
-	cartRes, err := c.CarService.FindAll(ctx, &cart.FindAllCartRequest{})
+	cartRes, err := c.CarService.FindAll(ctx, &cart.FindAllCartRequest{
+		UserId: req.Userid,
+	})
 	if err != nil {
 		fmt.Println(err)
 		return err
