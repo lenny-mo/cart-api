@@ -1,0 +1,62 @@
+syntax = "proto3";
+
+package go.micro.api.cartapi;
+import "google/protobuf/timestamp.proto";
+
+
+option go_package= "./cartapi";
+
+service CartApi {
+	rpc FindAll(FindAllRequest) returns (FindAllResponse) {}
+	rpc Add(AddCartRequest) returns (AddCartResponse) {}
+	rpc Update(UpdateRequest) returns (UpdateResponse) {}
+	rpc Delete(DeleteRequest) returns (DeleteResponse) {}
+}
+
+message FindAllRequest {
+	string userid = 1;
+}
+
+message FindAllResponse {
+	repeated CartItem cartItems = 1;
+}
+
+enum CartStatus {
+	UNCHECKOUT = 0; // 还没有支付的商品
+	CHECKOUT = 1; 	// 已经被添加到订单准备支付的商品
+	DISCARD = 2;	// 被抛弃的商品
+}
+
+message CartItem {
+	string skuid = 1;
+	int32 quantity = 2;
+	google.protobuf.Timestamp time = 3; 
+	CartStatus status = 4;
+}
+
+message AddCartRequest {
+	string userId = 1;
+	CartItem item = 2; 	// 添加的商品信息
+}
+
+message AddCartResponse {
+	string msg = 1;
+}
+
+message UpdateRequest {
+	string userId = 1;
+	CartItem item = 2;
+}
+
+message UpdateResponse {
+	string msg = 1;	
+}
+
+message DeleteRequest {
+	string userid = 1;
+	string skuid = 2;
+}
+
+message DeleteResponse {
+	string msg = 1;
+}
