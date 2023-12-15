@@ -1,11 +1,12 @@
 package main
 
 import (
-	"cart-api/handler"
-	"cart-api/proto/cartapi"
-	"cart-api/utils"
 	"fmt"
 	"net/http"
+
+	"github.com/lenny-mo/cart-api/handler"
+	"github.com/lenny-mo/cart-api/proto/cartapi"
+	"github.com/lenny-mo/cart-api/utils"
 
 	"github.com/afex/hystrix-go/hystrix"
 	"github.com/lenny-mo/cart/proto/cart"
@@ -50,7 +51,7 @@ func main() {
 	}()
 
 	service := micro.NewService(
-		micro.Name("go.micro.api.cart-api"),
+		micro.Name("go.micro.api.github.com/lenny-mo/cart-api"),
 		micro.Version("latest"),
 		micro.Address("127.0.0.1:8090"),
 		micro.Registry(consulRegistry),
