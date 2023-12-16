@@ -47,6 +47,7 @@ type CartApiService interface {
 	Add(ctx context.Context, in *AddCartRequest, opts ...client.CallOption) (*AddCartResponse, error)
 	Update(ctx context.Context, in *UpdateRequest, opts ...client.CallOption) (*UpdateResponse, error)
 	Delete(ctx context.Context, in *DeleteRequest, opts ...client.CallOption) (*DeleteResponse, error)
+	Checkout(ctx context.Context, in *CheckoutRequest, opts ...client.CallOption) (*CheckoutResponse, error)
 }
 
 type cartApiService struct {
@@ -101,6 +102,16 @@ func (c *cartApiService) Delete(ctx context.Context, in *DeleteRequest, opts ...
 	return out, nil
 }
 
+func (c *cartApiService) Checkout(ctx context.Context, in *CheckoutRequest, opts ...client.CallOption) (*CheckoutResponse, error) {
+	req := c.c.NewRequest(c.name, "CartApi.Checkout", in)
+	out := new(CheckoutResponse)
+	err := c.c.Call(ctx, req, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // Server API for CartApi service
 
 type CartApiHandler interface {
@@ -108,6 +119,7 @@ type CartApiHandler interface {
 	Add(context.Context, *AddCartRequest, *AddCartResponse) error
 	Update(context.Context, *UpdateRequest, *UpdateResponse) error
 	Delete(context.Context, *DeleteRequest, *DeleteResponse) error
+	Checkout(context.Context, *CheckoutRequest, *CheckoutResponse) error
 }
 
 func RegisterCartApiHandler(s server.Server, hdlr CartApiHandler, opts ...server.HandlerOption) error {
@@ -116,6 +128,7 @@ func RegisterCartApiHandler(s server.Server, hdlr CartApiHandler, opts ...server
 		Add(ctx context.Context, in *AddCartRequest, out *AddCartResponse) error
 		Update(ctx context.Context, in *UpdateRequest, out *UpdateResponse) error
 		Delete(ctx context.Context, in *DeleteRequest, out *DeleteResponse) error
+		Checkout(ctx context.Context, in *CheckoutRequest, out *CheckoutResponse) error
 	}
 	type CartApi struct {
 		cartApi
@@ -142,4 +155,8 @@ func (h *cartApiHandler) Update(ctx context.Context, in *UpdateRequest, out *Upd
 
 func (h *cartApiHandler) Delete(ctx context.Context, in *DeleteRequest, out *DeleteResponse) error {
 	return h.CartApiHandler.Delete(ctx, in, out)
+}
+
+func (h *cartApiHandler) Checkout(ctx context.Context, in *CheckoutRequest, out *CheckoutResponse) error {
+	return h.CartApiHandler.Checkout(ctx, in, out)
 }

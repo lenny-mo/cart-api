@@ -10,13 +10,14 @@ import (
 )
 
 // CartApi 实现下面的接口
-// Server API for CartApi service∂
+// Server API for CartApi service
 //
 //	type CartApiHandler interface {
 //		FindAll(context.Context, *FindAllRequest, *FindAllResponse) error
 //		Add(context.Context, *AddCartRequest, *AddCartResponse) error
 //		Update(context.Context, *UpdateRequest, *UpdateResponse) error
 //		Delete(context.Context, *DeleteRequest, *DeleteResponse) error
+//		Checkout(context.Context, *CheckoutRequest, *CheckoutResponse) error
 //	}
 type CartAPI struct {
 	CarService cart.CartService
@@ -89,5 +90,18 @@ func (c *CartAPI) Delete(ctx context.Context, req *cartapi.DeleteRequest, res *c
 		return err
 	}
 	res.Msg = cartRes.Msg
+	return nil
+}
+
+func (c *CartAPI) Checkout(ctx context.Context, req *cartapi.CheckoutRequest, res *cartapi.CheckoutResponse) error {
+	cartRes, err := c.CarService.CheckOutCart(ctx, &cart.CheckOutCartRequest{
+		UserId: req.UserId,
+	})
+	if err != nil {
+		fmt.Println(err)
+		return err
+	}
+	res.Msg = cartRes.Msg
+
 	return nil
 }

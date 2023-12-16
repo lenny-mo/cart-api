@@ -11,6 +11,7 @@ service CartApi {
 	rpc Add(AddCartRequest) returns (AddCartResponse) {}
 	rpc Update(UpdateRequest) returns (UpdateResponse) {}
 	rpc Delete(DeleteRequest) returns (DeleteResponse) {}
+	rpc Checkout(CheckoutRequest) returns (CheckoutResponse) {}
 }
 
 message FindAllRequest {
@@ -58,5 +59,13 @@ message DeleteRequest {
 }
 
 message DeleteResponse {
+	string msg = 1;
+}
+
+message CheckoutRequest {
+	string userId = 1;
+}
+
+message CheckoutResponse {
 	string msg = 1;
 }
