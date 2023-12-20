@@ -9,15 +9,12 @@ replace google.golang.org/grpc => google.golang.org/grpc v1.26.0
 require (
 	github.com/afex/hystrix-go v0.0.0-20180502004556-fa1af6a1f4f5
 	github.com/golang/protobuf v1.5.3
-	github.com/google/uuid v1.5.0 // indirect
-	github.com/lenny-mo/cart v0.0.0-20231215072930-d3cc26b2c56c
+	github.com/lenny-mo/cart v0.0.0-20231216070838-7d0c8932045e
+	github.com/lenny-mo/emall-utils v0.0.0-20231218141407-3b3960e96cd9
 	github.com/micro/go-micro/v2 v2.9.1
 	github.com/micro/go-plugins/registry/consul/v2 v2.9.1
 	github.com/micro/go-plugins/wrapper/trace/opentracing/v2 v2.9.1
-	github.com/miekg/dns v1.1.57 // indirect
-	github.com/opentracing/opentracing-go v1.1.0
+	github.com/opentracing/opentracing-go v1.2.0
 	github.com/uber/jaeger-client-go v2.30.0+incompatible
-	golang.org/x/net v0.19.0 // indirect
-	golang.org/x/tools v0.16.1 // indirect
 	google.golang.org/protobuf v1.31.0
 )
