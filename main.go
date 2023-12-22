@@ -3,9 +3,9 @@ package main
 import (
 	"fmt"
 
+	"github.com/lenny-mo/cart-api/circuit"
 	"github.com/lenny-mo/cart-api/handler"
 	"github.com/lenny-mo/cart-api/proto/cartapi"
-	"github.com/lenny-mo/cart-api/utils"
 	"github.com/lenny-mo/emall-utils/tracer"
 
 	"github.com/lenny-mo/cart/proto/cart"
@@ -44,7 +44,7 @@ func main() {
 		micro.WrapClient(opentracing2.NewClientWrapper(opentracing.GlobalTracer())),
 		micro.WrapHandler(opentracing2.NewHandlerWrapper(opentracing.GlobalTracer())),
 		// 添加熔断
-		micro.WrapClient(utils.NewClientHystrixWrapper()),
+		micro.WrapClient(circuit.NewClientWrapper()),
 	)
 
 	service.Init()
